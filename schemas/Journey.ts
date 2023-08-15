@@ -2,32 +2,28 @@ import mongoose from "mongoose";
 
 const journeySchema = new mongoose.Schema({
   Departure: {
-    type: "Date",
+    type: Date,
   },
   Return: {
-    type: "Date",
+    type: Date,
   },
   "Departure station id": {
-    $numberInt: {
-      type: "Date",
-    },
+    type: Number,
   },
   "Departure station name": {
-    type: "String",
+    type: String,
   },
   "Return station id": {
-    $numberInt: {
-      type: "Date",
-    },
+    type: Number,
   },
   "Return station name": {
-    type: "String",
+    type: String,
   },
   "Covered distance (m)": {
-    $numberDouble: {
-      type: "String",
-    },
+    type: String,
   },
 });
 
-export const Journey = mongoose.model("Journey", journeySchema);
+const Journey = mongoose.model("Journey", journeySchema);
+
+export default Journey;
