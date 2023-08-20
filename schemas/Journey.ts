@@ -20,7 +20,7 @@ const journeySchema = new mongoose.Schema({
     type: String,
   },
   "Covered distance (m)": {
-    type: String,
+    type: Number,
   },
 });
 
