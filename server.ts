@@ -1,4 +1,4 @@
-import express from "express";
+import express, { json } from "express";
 import journeyRouter from "./routes/journeys";
 import mongoose from "mongoose";
 import { MONGO_URI, PORT } from "./config/config";
@@ -14,6 +14,7 @@ import { MONGO_URI, PORT } from "./config/config";
 })();
 
 const app = express();
+app.use(express.json());
 app.use("/api/journeys", journeyRouter);
 
 app.listen(PORT, () => {

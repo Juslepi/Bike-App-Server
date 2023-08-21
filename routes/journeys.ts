@@ -21,6 +21,17 @@ journeyRouter.get("/", async (req, res) => {
   }
 });
 // Get journey by id
+journeyRouter.post("/", async (req, res) => {
+  const newJourney = new Journey(req.body);
+
+  try {
+    await newJourney.save();
+    res.status(201).send(newJourney);
+  } catch (error) {
+    console.log("Error saving to Database");
+    console.error(error);
+  }
+});
 // Post journey
 
 export default journeyRouter;
