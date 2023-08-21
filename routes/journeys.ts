@@ -6,7 +6,14 @@ const journeyRouter = Router();
 // Get journeys
 journeyRouter.get("/", async (req, res) => {
   try {
-    const journeys = await Journey.find({});
+    const perPage = 20;
+    const pageQueryParam = req.query.page?.toString();
+    const page = pageQueryParam ? Number.parseInt(pageQueryParam) : 1;
+
+    const journeys = await Journey.find({})
+      .skip(page * perPage - 1)
+      .limit(perPage);
+
     res.json(journeys);
   } catch (error) {
     console.error("Error retrieving journeys", error);
