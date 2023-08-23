@@ -21,6 +21,15 @@ journeyRouter.get("/", async (req, res) => {
   }
 });
 // Get journey by id
+journeyRouter.get("/:id", async (req, res) => {
+  try {
+    const journey = await Journey.findById(req.params.id)
+    res.send(journey)
+   } catch (e) {
+    res.status(404).json({error: "Journey not found"})
+   }
+})
+// Post journey
 journeyRouter.post("/", async (req, res) => {
   const newJourney = new Journey(req.body);
 
@@ -32,6 +41,5 @@ journeyRouter.post("/", async (req, res) => {
     console.error(error);
   }
 });
-// Post journey
 
 export default journeyRouter;
