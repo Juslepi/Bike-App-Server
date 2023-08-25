@@ -6,7 +6,14 @@ const stationRouter = Router();
 // Get stations
 stationRouter.get("/", async (req, res) => {
   try {
-    const stations = await Station.find({});
+    const perPage = 20;
+    const pageQueryParam = req.query.page?.toString();
+    const page = pageQueryParam ? Number.parseInt(pageQueryParam) : 1;
+
+    const stations = await Station.find({})
+      .skip(page * perPage - 1)
+      .limit(perPage);
+
     res.send(stations);
   } catch (error) {
     console.error(error);
