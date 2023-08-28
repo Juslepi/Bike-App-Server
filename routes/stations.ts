@@ -21,4 +21,15 @@ stationRouter.get("/", async (req, res) => {
   }
 });
 
+// Get single station
+stationRouter.get("/:id", async(req, res) => {
+    try {
+        const station = await Station.findById(req.params.id)
+        res.send(station)
+    } catch (error) {
+        console.error(error)
+        res.status(404).send({error: "Station not found"})
+    }
+})
+
 export default stationRouter;
