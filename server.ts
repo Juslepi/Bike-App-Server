@@ -1,8 +1,8 @@
 import express, { json } from "express";
 import journeyRouter from "./routes/journeys";
-import stationRouter from "./routes/stations"
 import mongoose from "mongoose";
 import { MONGO_URI, PORT } from "./config/config";
+import stationRouter from "./routes/stations";
 
 // Connect to the database
 (async function () {
@@ -17,7 +17,7 @@ import { MONGO_URI, PORT } from "./config/config";
 const app = express();
 app.use(express.json());
 app.use("/api/journeys", journeyRouter);
-app.use("/api/stations/", stationRouter)
+app.use("/api/stations", stationRouter);
 
 app.listen(PORT, () => {
   console.log("Server online on", PORT);
