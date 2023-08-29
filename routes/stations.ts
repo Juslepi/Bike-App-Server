@@ -12,7 +12,7 @@ stationRouter.get("/", async (req, res) => {
     const page = pageQueryParam ? Number.parseInt(pageQueryParam) : 1;
 
     const stations = await Station.find({})
-      .skip(page * perPage - 1)
+      .skip((page - 1) * perPage)
       .limit(perPage);
 
     res.send(stations);
