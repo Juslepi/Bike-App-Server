@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Station from "../schemas/Station";
+import Journey from "../schemas/Journey";
 
 const stationRouter = Router();
 
@@ -25,7 +26,11 @@ stationRouter.get("/", async (req, res) => {
 stationRouter.get("/:id", async(req, res) => {
     try {
         const station = await Station.findById(req.params.id)
-        res.send(station)
+        const departures = await Journey.find({"Departure station id": station?.ID}).count()
+        const returns = await Journey.find({"Return station id": station?.ID}).count()
+        
+        const updatedStation = {...station?.toObject(), departures, returns}
+        res.send(updatedStation)
     } catch (error) {
         console.error(error)
         res.status(404).send({error: "Station not found"})
