@@ -7,14 +7,7 @@ const stationRouter = Router();
 // Get stations
 stationRouter.get("/", async (req, res) => {
   try {
-    const perPage = 20;
-    const pageQueryParam = req.query.page?.toString();
-    const page = pageQueryParam ? Number.parseInt(pageQueryParam) : 1;
-
     const stations = await Station.find({})
-      .skip((page - 1) * perPage)
-      .limit(perPage);
-
     res.send(stations);
   } catch (error) {
     console.error(error);
@@ -33,12 +26,12 @@ stationRouter.get("/:id", async (req, res) => {
 
     const updatedStation = {
       ...station?.toObject(),
-      departures: departures.length,
-      returns: returns.length,
+      Departures: departures.length,
+      Returns: returns.length,
       ["Average departure length"]: averageDepartureLength,
       ["Average return length"]: averageReturnLength
     }
-    
+
     res.send(updatedStation)
   } catch (error) {
     console.error(error)
